@@ -1,0 +1,41 @@
+name: Deploy Toomio Frontend to the S3 Bucket
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+            role-to-assume: ${{ secrets.AWS_ROLE }}
+            role-session-name: "GitHub_to_AWS_via_FederatedOIDC"
+            aws-region: "us-east-1"
+      
+      - name: npm install
+        run: npm install
+      
+      - name: npm build
+        run: CI=false npm run build
+
+      - name: terraform initiate
+        run: terraform -chdir=IaC/ init
+      
+      - name: terraform apply
+        run: terraform -chdir=IaC/ apply --auto-approve
+
+      # - name: upload to s3 bucket
+      #   run: aws s3 sync build s3://${{ secrets.S3_BUCKET_NAME }} --delete
+
+      # - name: invalidate cloudfront
+      #   run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
