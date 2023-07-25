@@ -1,4 +1,4 @@
-name: Deploy Toomio Frontend to the S3 Bucket
+name: Deploy Toomio Project Frontend to the S3 Bucket
 
 on:
   push:
