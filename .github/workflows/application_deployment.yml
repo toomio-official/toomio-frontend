@@ -1,10 +1,9 @@
 name: Application Deployment Workflow
 
 on:
-  workflow_run:
-    workflows: ["Infrastructure Deployment Workflow"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
   build-and-deploy:
