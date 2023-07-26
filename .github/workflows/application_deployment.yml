@@ -1,12 +1,13 @@
-name: Deploy Toomio Project Frontend to the S3 Bucket
+name: Application Deployment Workflow
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Infrastructure Deployment Workflow"]
+    types:
+      - completed
 
 jobs:
-  build-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -21,12 +22,6 @@ jobs:
             role-to-assume: ${{ secrets.AWS_ROLE }}
             role-session-name: "GitHub_to_AWS_via_FederatedOIDC"
             aws-region: "us-east-1"
-
-      - name: Terraform Initiate
-        run: terraform -chdir=IaC/ init
-      
-      - name: Terraform Apply
-        run: terraform -chdir=IaC/ apply --auto-approve
       
       - name: NPM Install
         run: npm install
@@ -34,8 +29,8 @@ jobs:
       - name: NPM Build
         run: CI=false npm run build
 
-      - name: upload to s3 bucket
+      - name: Upload to S3 bucket
         run: aws s3 sync dist/toomio-frontend s3://${{ secrets.S3_BUCKET_NAME }} --delete
 
-      - name: invalidate cloudfront
+      - name: Invalidate CloudFront
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"

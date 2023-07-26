@@ -1,0 +1,30 @@
+name: Infrastructure Deployment Workflow
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - IaC/*
+
+jobs:
+  init-and-apply:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+            role-to-assume: ${{ secrets.AWS_ROLE }}
+            role-session-name: "GitHub_to_AWS_via_FederatedOIDC"
+            aws-region: "us-east-1"
+
+      - name: Terraform Initiate
+        run: terraform -chdir=IaC/ init
+      
+      - name: Terraform Apply
+        run: terraform -chdir=IaC/ apply --auto-approve
