@@ -8,6 +8,7 @@ import { SignupComponent } from './view/signup/signup.component';
 import { NotificationsComponent } from './view/notifications/notifications.component';
 import { SettingsComponent } from './view/settings/settings.component';
 import {FormsModule} from "@angular/forms";
+import { MainUiComponent } from './view/main-ui/main-ui.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {FormsModule} from "@angular/forms";
     LoginComponent,
     SignupComponent,
     NotificationsComponent,
-    SettingsComponent
+    SettingsComponent,
+    MainUiComponent
   ],
   imports: [
     BrowserModule,
