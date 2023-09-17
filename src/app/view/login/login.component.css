@@ -1,0 +1,26 @@
+#container {
+  height: 100vh;
+}
+
+#content {
+  width: 350px;
+}
+
+#content > h2 {
+  font-weight: bold;
+}
+
+#btn-login {
+  border-radius: 20px;
+  background-color: #1da1f2;
+  outline: #1da1f2;
+  padding: 8px;
+}
+
+#btn-login:hover {
+  background-color: #055e94;
+}
+
+#links > a {
+  color: #48b1f1;
+}
