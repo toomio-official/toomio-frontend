@@ -1,0 +1,13 @@
+#home-navigation > div:hover {
+  user-select: none;
+  font-weight: bold;
+}
+
+#home-navigation {
+  border-bottom: 2px solid lightgray;
+}
+
+#home-navigation > div.active {
+  border-bottom: 3px solid dodgerblue;
+  font-weight: bold;
+}
