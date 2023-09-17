@@ -11,3 +11,59 @@
   border-bottom: 3px solid dodgerblue;
   font-weight: bold;
 }
+
+#post-journey {
+  height: 150px;
+  /*background-color: #a8e891;*/
+  border-bottom: 1px solid lightgray;
+}
+
+.pp {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+#btn-post {
+  width: 100px;
+  background-color: #48b1f1;
+  border: none;
+}
+
+#btn-post:hover,
+#btn-journey:hover {
+  background-color: #055e94;
+}
+
+.input-pj {
+  outline: white;
+  border: none;
+}
+
+#select-journey {
+  margin-left: 73px;
+  margin-top: 5px;
+}
+
+#select-journey > select {
+  width: 200px;
+  border: 1px solid #48b1f1;
+}
+
+#img {
+  margin-left: 73px;
+  width: 320px;
+}
+
+
+#btn-journey {
+  width: 150px;
+  background-color: #48b1f1;
+  border: none;
+}
+
+#journey-description {
+  margin-top: 10px;
+  margin-left: 58px;
+  width: 69%;
+}

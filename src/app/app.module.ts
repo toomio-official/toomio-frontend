@@ -25,6 +25,9 @@ import { MainUiComponent } from './view/main-ui/main-ui.component';
     FormsModule
   ],
   providers: [],
+  exports: [
+    NotificationsComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

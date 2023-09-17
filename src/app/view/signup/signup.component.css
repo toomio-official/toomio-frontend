@@ -15,6 +15,7 @@
   background-color: #1da1f2;
   outline: #1da1f2;
   padding: 8px;
+  border: none;
 }
 
 #btn-login:hover {
