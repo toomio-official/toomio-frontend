@@ -6,6 +6,7 @@ import {SignupComponent} from "./view/signup/signup.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'user', redirectTo: '/user/home', pathMatch: 'full' },
   {
     path: 'login',
     component:LoginComponent
@@ -18,6 +19,10 @@ const routes: Routes = [
     path: 'user',
     component:MainUiComponent,
     children: [
+      {
+        path: 'home',
+        loadChildren: () => import('./view/main-ui/home/home.module').then(m => m.HomeModule)
+      },
       {
         path: 'notifications',
         loadChildren: () => import('./view/notifications/notifications.module').then(m => m.NotificationsModule)
