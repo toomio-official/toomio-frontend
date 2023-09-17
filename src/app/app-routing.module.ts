@@ -15,7 +15,7 @@ const routes: Routes = [
     component:SignupComponent
   },
   {
-    path: 'admin',
+    path: 'user',
     component:MainUiComponent,
     children: [
       {
