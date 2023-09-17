@@ -1,0 +1,7 @@
+.content {
+  width: 200px;
+}
+
+.btn:hover {
+  background-color: lightgray;
+}
