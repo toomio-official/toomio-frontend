@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { PathLocationStrategy, LocationStrategy } from '@angular/common';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './view/login/login.component';
@@ -21,7 +19,7 @@ import { MainUiComponent } from './view/main-ui/main-ui.component';
     MainUiComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
-  providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
