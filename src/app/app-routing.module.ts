@@ -5,14 +5,14 @@ import {LoginComponent} from "./view/login/login.component";
 import {SignupComponent} from "./view/signup/signup.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'user', redirectTo: '/user/home', pathMatch: 'full' },
   {
-    path: 'login',
+    path: 'auth/login',
     component:LoginComponent
   },
   {
-    path: 'signup',
+    path: 'auth/signup',
     component:SignupComponent
   },
   {
@@ -30,6 +30,10 @@ const routes: Routes = [
       {
         path: 'settings',
         loadChildren: () => import('./view/settings/settings.module').then(m => m.SettingsModule)
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('./view/main-ui/profile/profile.module').then(m => m.ProfileModule)
       }
     ]
   }

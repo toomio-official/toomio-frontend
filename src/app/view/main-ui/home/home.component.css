@@ -1,3 +1,7 @@
+.text-color1 {
+  color: gray;
+}
+
 #home-content {
   overflow-y: scroll;
   height: 87%;
@@ -6,6 +10,7 @@
 #home-navigation > div:hover {
   user-select: none;
   font-weight: bold;
+  cursor: pointer;
 }
 
 #home-navigation {
