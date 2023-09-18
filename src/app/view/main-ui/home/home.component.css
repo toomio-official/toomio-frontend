@@ -1,3 +1,8 @@
+#home-content {
+  overflow-y: scroll;
+  height: 87%;
+}
+
 #home-navigation > div:hover {
   user-select: none;
   font-weight: bold;
@@ -66,4 +71,19 @@
   margin-top: 10px;
   margin-left: 58px;
   width: 69%;
+}
+
+/*post-content*/
+.journey-name {
+  color: #48b1f1;
+}
+
+.react-line > div:hover {
+  color: #48b1f1;
+  user-select: none;
+  cursor: pointer;
+}
+
+.post-images {
+  max-width: 500px;
 }
