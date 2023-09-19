@@ -1,15 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {VisibilityService} from "./visibility.service";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   journey:boolean = false;
   post:boolean = true;
+  isHomeVisible:boolean = true;
 
-  constructor() {
+  constructor(private visibilityService:VisibilityService) {
+    this.isHomeVisible = visibilityService.getVisibility();
+  }
+
+  ngOnInit(){
+    setInterval(()=>{
+      this.isHomeVisible = this.visibilityService.getVisibility();
+    }, 250);
   }
 
 

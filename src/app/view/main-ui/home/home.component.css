@@ -2,6 +2,11 @@
   color: gray;
 }
 
+#home,
+#other-profile {
+  height: 100vh;
+}
+
 #home-content {
   overflow-y: scroll;
   height: 87%;
