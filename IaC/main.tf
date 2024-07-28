@@ -1,5 +1,5 @@
 module "frontend" {
-  source                              = "github.com/toomio-official/terraform-s3-cloudfront-module?ref=v0.3.3"
+  source                              = "github.com/toomio-official/terraform-s3-cloudfront-module?ref=v0.4.1"
   s3_bucket_name                      = "toomio-project-frontend-bucket"
   cloudfront_distribution_description = "Toomio Project Frontend"
   domain_names                        = ["toomio.com", "www.toomio.com"]
