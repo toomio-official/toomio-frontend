@@ -19,7 +19,9 @@ import {HttpClientModule} from "@angular/common/http";
     SettingsComponent,
     MainUiComponent,
   ],
+
   imports: [BrowserModule, AppRoutingModule, FormsModule,  HttpClientModule ],
+
   providers: [],
   bootstrap: [AppComponent],
 })
