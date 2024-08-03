@@ -1,0 +1,51 @@
+<div>
+  <h4 class="p-2 mx-2 mt-2">Home</h4>
+  <hr>
+  <div class="center-container">
+    <span
+      (click)="selectOption('post')"
+      [ngClass]="{'underline': selectedOption === 'post'}">
+      Create Post
+    </span>
+    <span
+      (click)="selectOption('journey')"
+      [ngClass]="{'underline': selectedOption === 'journey'}">
+      Create Journey
+    </span>
+  </div>
+  <ng-container *ngIf="selectedOption === 'post'">
+  <div  class="form-wrapper">
+    <div class="form-container">
+      <form (ngSubmit)="savePost()">
+        <div>
+          <input type="text" id="postName" [(ngModel)]="postName" name="postName" required placeholder="post name?">
+        </div>
+        <div>
+          <textarea id="postDescription" [(ngModel)]="postDescription" name="postDescription" required placeholder="description?"></textarea>
+        </div>
+      </form>
+    </div>
+  </div>
+    <button (click)="savePost()" class="left" type="submit">Post</button>
+
+  </ng-container>
+
+  <ng-container *ngIf="selectedOption === 'journey'" >
+    <div *ngIf="selectedOption === 'journey'" class="form-wrapper">
+      <div class="form-container">
+        <form (ngSubmit)="savePost()">
+          <div>
+            <input type="text" id="journeyName" [(ngModel)]="journeyName" name="postName" required placeholder="Journey name?">
+          </div>
+          <div>
+            <textarea id="journeyDescription" [(ngModel)]="journeyDescription" name="postDescription" required placeholder="description?"></textarea>
+          </div>
+        </form>
+      </div>
+    </div>
+    <button (click)="saveJourney()" class="left" type="submit">Create Journey</button>
+
+  </ng-container>
+
+  <hr>
+</div>

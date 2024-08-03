@@ -8,6 +8,7 @@ import { NotificationsComponent } from './view/notifications/notifications.compo
 import { SettingsComponent } from './view/settings/settings.component';
 import { FormsModule } from '@angular/forms';
 import { MainUiComponent } from './view/main-ui/main-ui.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { MainUiComponent } from './view/main-ui/main-ui.component';
     SettingsComponent,
     MainUiComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+
+  imports: [BrowserModule, AppRoutingModule, FormsModule,  HttpClientModule ],
+
   providers: [],
   bootstrap: [AppComponent],
 })
