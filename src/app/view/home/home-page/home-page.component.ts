@@ -6,18 +6,24 @@ import {PostService} from "../../../services/post.service";
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
-export class HomePageComponent implements OnInit{
+export class HomePageComponent implements OnInit {
 
   selectedOption: string = '';
   postName: string = '';
   postDescription: string = '';
-  journeyDescription:any;
-  journeyName:any;
-  postData:any;
-  journeyData:any;
+  journeyDescription: any;
+  journeyName: any;
+  postData: any;
+  journeyData: any;
   posts: any[] = [];
   newComment: any;
   userEmail: string | null = null;
+  showPost: boolean = false;
+  likes: number = 0;
+  comments: string[] = [];
+  isCommentModalOpen: boolean = false;
+  feedData: any;
+
 
   constructor(
     private postService: PostService,
@@ -27,20 +33,29 @@ export class HomePageComponent implements OnInit{
   ngOnInit(): void {
     this.userEmail = localStorage.getItem('userEmail');
     console.log('Stored email:', this.userEmail);
-
+    this.getAllPosts()
   }
+
   selectOption(option: string): void {
     this.selectedOption = option;
   }
 
+  getAllPosts() {
+    this.postService.loadFeed(this.userEmail).subscribe((res: any) => {
+      this.feedData = res;
+      debugger
+    })
+  }
+
+
   savePost() {
     debugger
-    let data ={
-      id:0,
-      title:this.postName,
-      description:this.postDescription,
+    let data = {
+      id: 0,
+      title: this.postName,
+      description: this.postDescription,
     }
-    this.postService.createPost(data).subscribe((res:any)=>{
+    this.postService.createPost(data).subscribe((res: any) => {
       this.postData = res;
       debugger
     })
@@ -52,16 +67,16 @@ export class HomePageComponent implements OnInit{
     this.postDescription = '';
   }
 
-  saveJourney(){
+  saveJourney() {
     debugger
-    let data ={
+    let data = {
       // id:0,
-      title:this.journeyName,
-      description:this.journeyDescription,
-      userEmail:this.userEmail
+      title: this.journeyName,
+      description: this.journeyDescription,
+      userEmail: this.userEmail
     }
     debugger
-    this.postService.createJourney(data).subscribe((res:any)=>{
+    this.postService.createJourney(data).subscribe((res: any) => {
       this.journeyData = res;
       debugger
     })
@@ -73,17 +88,46 @@ export class HomePageComponent implements OnInit{
     this.journeyDescription = '';
   }
 
-  likePost(postId: number) {
-    // this.postService.likePost(postId);
+  // likePost(postId: number) {
+  //   // this.postService.likePost(postId);
+  // }
+  //
+  // addComment(postId: number) {
+  //   // const comment: Comment = {
+  //   //   id: 0,
+  //   //   postId: postId,
+  //   //   text: this.newComment
+  //   // };
+  //   // this.postService.addComment(postId, comment);
+  //   // this.newComment = '';
+  // }
+
+  likePost(): void {
+    this.likes++;
   }
 
-  addComment(postId: number) {
-    // const comment: Comment = {
-    //   id: 0,
-    //   postId: postId,
-    //   text: this.newComment
-    // };
-    // this.postService.addComment(postId, comment);
-    // this.newComment = '';
+  //
+  // addComment(): void {
+  //   if (this.newComment.trim()) {
+  //     this.comments.push(this.newComment);
+  //     this.newComment = '';
+  //   }
+  // }
+  addComment() {
+    if (this.newComment.trim()) {
+      this.comments.push(this.newComment.trim());
+      this.newComment = '';
+      this.closeCommentModal();
+    }
   }
+
+  openCommentModal() {
+    this.isCommentModalOpen = true;
+  }
+
+  closeCommentModal() {
+    this.isCommentModalOpen = false;
+  }
+
+
 }

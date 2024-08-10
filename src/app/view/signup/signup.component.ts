@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from "../../services/login.service";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-signup',
@@ -23,7 +24,9 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
+
   ) {
   }
 
@@ -58,16 +61,45 @@ export class SignupComponent implements OnInit {
       if (this.profilePicture) {
         formData.append('profilePicture', this.profilePicture);
       }
-debugger
-      this.loginService.userSignIn(form.form.value).subscribe(
-        (res: any) => {
-          this.signUpData = res;
-          this.router.navigate(['/admin/home-page']);
-        },
-        (error: any) => {
-          console.error('Error during sign up:', error);
-        }
-      );
+      // this.loginService.userSignIn(form.form.value).subscribe(
+      //   (res: any) => {
+      //     this.signUpData = res;
+      //     this.router.navigate(['/admin/home-page']);
+      //   },
+      //   (error: any) => {
+      //     console.error('Error during sign up:', error);
+      //   }
+      // );
     }
+  }
+
+  crateUser(form:any){
+    let obj = {
+      firstName : form.form.value.firstName,
+      lastName: form.form.value.lastName,
+      email : form.form.value.email,
+      password: form.form.value.password,
+      profilePicture: form.form.value.profilePicture,
+      gender: form.form.value.gender,
+      birthDate: form.form.value.birthDate,
+    }
+    debugger
+    this.loginService.userSignIn(obj).subscribe(
+      (res: any) => {
+        this.signUpData = res;
+        debugger
+        this.toastr.success('Sign Up successful!', 'Success');
+
+        this.router.navigate(['/admin/home-page']);
+      },
+      (error: any) => {
+        console.error('Error during sign up:', error);
+        if (error.error && error.error.message) {
+          this.toastr.error(error.error.message, 'Error');
+        } else {
+          this.toastr.error('An unexpected error occurred. Please try again.', 'Error');
+        }
+      }
+    );
   }
 }

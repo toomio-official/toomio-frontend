@@ -21,23 +21,31 @@
     <h5 class="mb-4">Create an account</h5>
     <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)">
       <div class="d-flex flex-column gap-3">
-        <input type="text" class="form-control p-2" placeholder="Name" name="name" [(ngModel)]="firstName" required>
+        <input type="text" class="form-control p-2" placeholder="First Name" name="firstName" [(ngModel)]="firstName" required>
+        <input type="text" class="form-control p-2" placeholder="Last Name" name="lastName" [(ngModel)]="lastName" required>
         <input type="text" class="form-control p-2" placeholder="User name" name="username" [(ngModel)]="userName" required>
         <input type="email" class="form-control p-2" placeholder="Email" name="email" [(ngModel)]="email" required >
+        <label for="gender">Gender</label>
+        <select class="form-control p-2" name="gender" [(ngModel)]="gender" required>
+          <option value="" disabled selected>Select your gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
         <input type="password" class="form-control p-2" placeholder="Password" name="password" [(ngModel)]="password" required (ngModelChange)="checkPasswords()">
         <input type="password" class="form-control p-2" placeholder="Confirm Password" name="confirmPassword" [(ngModel)]="confirmPassword" required (ngModelChange)="checkPasswords()">
         <div *ngIf="passwordsDoNotMatch" class="text-danger">
           Passwords do not match.
         </div>
         <label>Date of birth</label>
-        <input class="form-control p-2" type="date" name="dateOfBirth" [(ngModel)]="birthDate" required>
+        <input class="form-control p-2" type="date" name="birthDate" [(ngModel)]="birthDate" required>
         <label>Profile Picture</label>
         <input type="file" class="form-control p-2" name="profilePicture" (change)="onFileChange($event)" #fileInput [(ngModel)]="profilePicture">
         <div *ngIf="profilePicture">
           <span>{{ profilePicture.name }}</span>
           <button type="button" class="btn btn-secondary" (click)="removeFile(fileInput)">Remove</button>
         </div>
-        <button  (click)="onSubmit(signupForm)" type="submit" id="btn-login" class="btn btn-primary" [disabled]="signupForm.invalid || passwordsDoNotMatch">Create</button>
+        <button  (click)="crateUser(signupForm)" type="submit" id="btn-login" class="btn btn-primary" [disabled]="signupForm.invalid || passwordsDoNotMatch">Create</button>
       </div>
     </form>
   </div>
