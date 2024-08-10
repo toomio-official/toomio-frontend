@@ -19,4 +19,17 @@ export class PostService {
   createJourney(data:any){
     return this.http.post(this.apiPostService.createJourney, data);
   }
+
+  likePost(data:any){
+    return this.http.put(this.apiPostService.likePost, data);
+  }
+
+  commentPost(data:any){
+    return this.http.put(this.apiPostService.commentPost, data);
+  }
+
+  loadFeed(email:any){
+    return this.http.get(this.apiPostService.loadFeed + email)
+  }
+
 }

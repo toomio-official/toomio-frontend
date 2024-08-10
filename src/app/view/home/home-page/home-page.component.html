@@ -14,31 +14,34 @@
     </span>
   </div>
   <ng-container *ngIf="selectedOption === 'post'">
-  <div  class="form-wrapper">
-    <div class="form-container">
-      <form (ngSubmit)="savePost()">
-        <div>
-          <input type="text" id="postName" [(ngModel)]="postName" name="postName" required placeholder="post name?">
-        </div>
-        <div>
-          <textarea id="postDescription" [(ngModel)]="postDescription" name="postDescription" required placeholder="description?"></textarea>
-        </div>
-      </form>
+    <div class="form-wrapper">
+      <div class="col-md-11 mx-2">
+        <form (ngSubmit)="savePost()">
+          <div>
+            <input type="text" id="postName" [(ngModel)]="postName" name="postName" required placeholder="post name?">
+          </div>
+          <div>
+            <textarea id="postDescription" [(ngModel)]="postDescription" name="postDescription" required
+                      placeholder="description?"></textarea>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
     <button (click)="savePost()" class="left" type="submit">Post</button>
 
   </ng-container>
 
-  <ng-container *ngIf="selectedOption === 'journey'" >
+  <ng-container *ngIf="selectedOption === 'journey'">
     <div *ngIf="selectedOption === 'journey'" class="form-wrapper">
-      <div class="form-container">
+      <div class="col-md-11 mx-2">
         <form (ngSubmit)="savePost()">
           <div>
-            <input type="text" id="journeyName" [(ngModel)]="journeyName" name="postName" required placeholder="Journey name?">
+            <input type="text" id="journeyName" [(ngModel)]="journeyName" name="postName" required
+                   placeholder="Journey name?">
           </div>
           <div>
-            <textarea id="journeyDescription" [(ngModel)]="journeyDescription" name="postDescription" required placeholder="description?"></textarea>
+            <textarea id="journeyDescription" [(ngModel)]="journeyDescription" name="postDescription" required
+                      placeholder="description?"></textarea>
           </div>
         </form>
       </div>
@@ -46,6 +49,40 @@
     <button (click)="saveJourney()" class="left" type="submit">Create Journey</button>
 
   </ng-container>
+
+  <hr>
+
+  <div class="col-md-10 mx-4" *ngFor="let item of feedData">
+    <div id="whois" class="d-flex align-items-center"  >
+      <div class="profile-image-wrapper">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image">
+      </div>
+      <div class="text-start mx-2">
+        <div class="fw-bold">Bobur</div>
+        <div class="fw-lighter">{{ item.userEmail }}</div>
+      </div>
+      <h3 class="ms-3">{{ item.title }}</h3>
+    </div>
+    <p>{{ item.content }}</p>
+    <img
+      src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHx1aSUyMHV4fGVufDB8fHx8MTYzMjM5NzI3OA&ixlib=rb-1.2.1&q=80&w=1080"
+      alt="Nature" class="nature-img">
+    <div class="interaction mt-4">
+      <i (click)="likePost()" class="fas fa-sign-language"></i>
+      <span>{{ likes }}</span>
+      <i (click)="openCommentModal()" class="fas fa-comment mx-5"></i>
+    </div>
+    <div *ngIf="isCommentModalOpen" class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeCommentModal()">&times;</span>
+        <textarea type="text" [(ngModel)]="newComment" placeholder="Add a comment"></textarea>
+        <button (click)="addComment()">Submit</button>
+      </div>
+    </div>
+    <div class="comments-section">
+      <div *ngFor="let comment of comments">{{ comment }}</div>
+    </div>
+  </div>
 
   <hr>
 </div>
