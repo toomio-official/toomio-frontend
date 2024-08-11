@@ -3,22 +3,32 @@
   width: 100vw;
 }
 
-#section1 {
-  height: 100%;
-}
+/*#section1 {*/
+/*  height: 100%;*/
+/*}*/
 
-#section2 {
-  height: 100%;
-}
+/*#section2 {*/
+/*  height: 100%;*/
+/*}*/
 
-#section3 {
-  height: 100%;
-}
+/*#section3 {*/
+/*  height: 100%;*/
+/*}*/
 
 #whois > div > img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+
+#whois {
+  align-items: flex-end; /* Aligns all items to the bottom */
+}
+
+#whois .text-start {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Aligns the text within the div to the bottom */
 }
 
 #space {
@@ -52,3 +62,54 @@
   color: #48b1f1;
 }
 
+#section1 {
+  height: 100vh; /* Full height of the viewport */
+  position: sticky; /* Keeps the sidebar in place */
+  top: 0;
+  overflow-y: hidden; /* Prevents scrolling in the sidebar */
+}
+
+#section2 {
+  height: 100vh; /* Full height of the viewport */
+  overflow-y: auto; /* Allows scrolling within the main content */
+}
+
+#section3 {
+  height: 100vh; /* Full height of the viewport */
+  overflow-y: auto; /* Allows scrolling within the journeys and friends section */
+}
+
+#journeys, #friends {
+  max-height: calc(100vh - 200px); /* Adjust the height to leave space for other elements */
+  overflow-y: auto; /* Enables scrolling within the journeys and friends sections */
+}
+
+/* Basic styling for the dropdown menu */
+.dropdown-menu {
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 100px;
+  padding: 0.5rem 0;
+}
+
+/* Ensure dropdown appears below the image */
+#whois .dropdown-menu {
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Dropdown item styling */
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: white; /* Text color */
+  background-color: black; /* Background color */
+  border: none; /* Remove border */
+  border-radius: 0; /* Remove border radius if needed */
+}
+
+.dropdown-item:hover {
+  background-color: #333; /* Darker background on hover */
+}
