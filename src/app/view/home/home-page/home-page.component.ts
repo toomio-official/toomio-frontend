@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PostService} from "../../../services/post.service";
+import {readableStreamLikeToAsyncGenerator} from "rxjs/internal/util/isReadableStreamLike";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-home-page',
@@ -10,7 +12,7 @@ export class HomePageComponent implements OnInit {
 
   selectedOption: string = '';
   postName: string = '';
-  postDescription: string = '';
+  content: string = '';
   journeyDescription: any;
   journeyName: any;
   postData: any;
@@ -20,20 +22,29 @@ export class HomePageComponent implements OnInit {
   userEmail: string | null = null;
   showPost: boolean = false;
   likes: number = 0;
-  comments: string[] = [];
+  comments: any
   isCommentModalOpen: boolean = false;
   feedData: any;
+  journey: any;
+  imageUrls: [] = [];
+  journeyList: any
+  selectedJourney: any = null; // Adjust based on your journey data type
+  dropdownOpen = false;
+  likeCount: number | undefined
+  likePostData: any;
 
 
   constructor(
     private postService: PostService,
+    private toastr: ToastrService
   ) {
   }
 
   ngOnInit(): void {
     this.userEmail = localStorage.getItem('userEmail');
     console.log('Stored email:', this.userEmail);
-    this.getAllPosts()
+    this.getAllPosts();
+    this.getAllJourneys();
   }
 
   selectOption(option: string): void {
@@ -43,42 +54,86 @@ export class HomePageComponent implements OnInit {
   getAllPosts() {
     this.postService.loadFeed(this.userEmail).subscribe((res: any) => {
       this.feedData = res;
-      debugger
+      // Assuming this.feedData is an array of posts
+      this.feedData.forEach((post: any) => {
+        debugger
+        post.likeCount = post.likes.length; // Set likeCount for each post
+        post.commentCount = post.comments.length
+      });
+    });
+  }
+
+
+  getAllJourneys() {
+    this.postService.getAllJourneys(this.userEmail).subscribe((res: any) => {
+      this.journeyList = res;
+      // for (var i = 0; i < res.length; i++) {
+      //   this.journeyList.push({
+      //     label:
+      //     res[i].title,
+      //
+      //     value:  res[i].title,
+      //   });
+      // }
     })
   }
 
+  onJourneyChange(event: any) {
+    debugger
+    const selectedJourneyObject = event.target.value;
+    this.selectedJourney = selectedJourneyObject;
+    this.journey = selectedJourneyObject; // or use _id if that's the correct property
+    debugger;
+  }
+
+  selectJourney(journey: any) {
+    debugger
+    this.selectedJourney = journey.title
+    debugger
+    this.journey = journey._id;
+    this.dropdownOpen = false; // Close dropdown after selection
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
 
   savePost() {
-    debugger
     let data = {
-      id: 0,
       title: this.postName,
-      description: this.postDescription,
-    }
+      content: this.content,
+      userEmail: this.userEmail,
+      journey: this.selectedJourney, // assuming journey is the selected journey
+      imageUrls: this.imageUrls
+    };
+
     this.postService.createPost(data).subscribe((res: any) => {
       this.postData = res;
-      debugger
-    })
-    console.log('Post Name:', this.postName);
-    console.log('Post Description:', this.postDescription);
 
-    // Optionally, clear the form after saving
-    this.postName = '';
-    this.postDescription = '';
+      // Show toast message for success
+      this.toastr.success('Post created', 'Success');
+
+      // Clear the form after saving
+      this.postName = '';
+      this.content = '';
+      this.selectedJourney = ''; // Clear the selected journey
+      this.imageUrls = []; // Clear the uploaded images if needed
+    });
+
+    console.log('Post Name:', this.postName);
+    console.log('Post Description:', this.content);
   }
 
+
   saveJourney() {
-    debugger
     let data = {
       // id:0,
       title: this.journeyName,
       description: this.journeyDescription,
       userEmail: this.userEmail
     }
-    debugger
     this.postService.createJourney(data).subscribe((res: any) => {
       this.journeyData = res;
-      debugger
     })
     console.log('Post Name:', this.journeyName);
     console.log('Post Description:', this.journeyDescription);
@@ -102,31 +157,62 @@ export class HomePageComponent implements OnInit {
   //   // this.newComment = '';
   // }
 
-  likePost(): void {
-    this.likes++;
+
+  getPostLikes(data: any) {
+    this.postService.getPostLikes(data._id).subscribe((res: any) => {
+      this.likeCount = res.count;
+      debugger
+    })
   }
 
-  //
-  // addComment(): void {
-  //   if (this.newComment.trim()) {
-  //     this.comments.push(this.newComment);
-  //     this.newComment = '';
-  //   }
-  // }
-  addComment() {
-    if (this.newComment.trim()) {
-      this.comments.push(this.newComment.trim());
-      this.newComment = '';
-      this.closeCommentModal();
+  likePost(data: any) {
+    debugger
+    let obj = {
+      smPostId: data._id,
+      userEmail: this.userEmail
     }
+
+    this.postService.likePost(obj).subscribe((res: any) => {
+      this.likePostData = res;
+      this.getPostLikes(obj)
+    })
   }
 
-  openCommentModal() {
+  addComment(data:any) {
+    debugger
+    let obj= {
+      smPostId: data._id,
+      userEmail: data.userEmail,
+      content: this.content
+    }
+    this.postService.commentPost(obj).subscribe((res:any)=>{
+      this.comments = res;
+      this.content = '';
+      this.closeCommentModal()
+      debugger
+    })
+  }
+
+  openCommentModal(data:any) {
+    debugger
     this.isCommentModalOpen = true;
+    this.postService.getAllPostComments(data._id).subscribe((res:any)=>{
+      this.comments = res;
+      debugger
+    })
+
   }
 
   closeCommentModal() {
     this.isCommentModalOpen = false;
+    this.comments = []
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      console.log('File selected:', file);
+    }
   }
 
 

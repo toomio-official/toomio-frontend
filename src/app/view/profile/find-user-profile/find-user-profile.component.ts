@@ -4,11 +4,13 @@ import {Location} from "@angular/common";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-profile-home',
-  templateUrl: './profile-home.component.html',
-  styleUrls: ['./profile-home.component.css']
+  selector: 'app-find-user-profile',
+  templateUrl: './find-user-profile.component.html',
+  styleUrls: ['./find-user-profile.component.css']
 })
-export class ProfileHomeComponent implements OnInit{
+
+
+export class FindUserProfileComponent   implements OnInit{
 
   // selectedOption: string = '';
   userEmail: string | null = null;
@@ -23,7 +25,6 @@ export class ProfileHomeComponent implements OnInit{
   likePostData: any;
   likeCount:any;
 
-
   constructor(
     private postService: PostService,
     private location: Location,
@@ -33,6 +34,7 @@ export class ProfileHomeComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    debugger
     this.userEmail = localStorage.getItem('userEmail');
     console.log('Stored email:', this.userEmail);
     this.getAllPosts();
@@ -126,7 +128,8 @@ export class ProfileHomeComponent implements OnInit{
 
   findProfile(){
     debugger
-    this.router.navigate(['/admin/profile/find-user-profile'])
+    this.router.navigate(['/user-profile'])
   }
+
 
 }

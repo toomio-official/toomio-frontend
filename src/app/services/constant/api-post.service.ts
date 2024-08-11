@@ -10,15 +10,23 @@ export class ApiPostService {
   private readonly _likePost:string;
   private readonly _commentePost:string;
   private readonly _findUser:string;
-  private readonly _loadFeed:string
+  private readonly _loadFeed:string;
+  private readonly _getAllJourneys: string;
+  private readonly _getPostLikes:string;
+  private readonly _getAllPosts:string;
+  private readonly _getAllPostComments:string
 
   constructor(private _apiService: ApiService) {
     this._createPost = _apiService.imsApiGatewayUrl + 'posts';
     this._createJourney = _apiService.imsApiGatewayUrl + 'journeys';
     this._likePost = _apiService.imsApiGatewayUrl + 'posts/likepost';
-    this._commentePost = _apiService.imsApiGatewayUrl + 'posts/likepost';
+    this._commentePost = _apiService.imsApiGatewayUrl + 'posts/commentpost';
     this._findUser = _apiService.imsApiGatewayUrl + 'user/';
     this._loadFeed = _apiService.imsApiGatewayUrl + 'feed?email=';
+    this._getAllJourneys = _apiService.imsApiGatewayUrl + 'journeys/user/';
+    this._getPostLikes = _apiService.imsApiGatewayUrl + 'posts/';
+    this._getAllPosts = _apiService.imsApiGatewayUrl + 'posts/user/';
+    this._getAllPostComments = _apiService.imsApiGatewayUrl + 'posts/'
   }
 
   get createPost():string {
@@ -38,5 +46,17 @@ export class ApiPostService {
   }
   get loadFeed():string {
     return this._loadFeed;
+  }
+  get getAllJourneys():string {
+    return this._getAllJourneys;
+  }
+  get getPostLikes():string {
+    return this._getPostLikes;
+  }
+  get getAllPosts():string {
+    return this._getAllPosts;
+  }
+  get getAllPostComments():string {
+    return this._getAllPostComments;
   }
 }
