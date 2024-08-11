@@ -42,6 +42,9 @@ export class PostService {
 
   getAllPosts(email:any){
     return this.http.get(this.apiPostService.getAllPosts + email)
+  }
 
+  getAllPostComments(id:any){
+    return this.http.get(this.apiPostService.getAllPostComments + id + '/comments')
   }
 }

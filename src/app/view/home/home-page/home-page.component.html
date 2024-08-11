@@ -24,37 +24,35 @@
             <textarea id="postDescription" [(ngModel)]="content" name="content" required
                       placeholder="Content?"></textarea>
           </div>
-           <div class="col-md-12 form-group mb-3" >
-             <div class="dropdown">
-               <button class="btn btn-secondary dropdown-toggle" type="button" (click)="toggleDropdown()">
-                 {{ selectedJourney || 'Select Journey' }}
-               </button>
-               <div class="dropdown-menu" [ngClass]="{'show': dropdownOpen}">
-                 <a *ngFor="let journey of journeyList" class="dropdown-item" (click)="selectJourney(journey)">
-                   {{ journey.title }}
-                 </a>
-               </div>
-             </div>
-<!--             <label for="journeySelect">Select a Journey:</label>-->
-<!--             <select id="journeySelect" [(ngModel)]="journey" (change)="onJourneyChange($event)">-->
-<!--               <option *ngFor="let journey of journeyList" [ngValue]="journey">-->
-<!--                 {{ journey.title }}-->
-<!--               </option>-->
-<!--             </select>-->
+<!--           <div class="col-md-12 form-group mb-3" >-->
+<!--             <div class="dropdown">-->
+<!--               <button class="btn btn-secondary dropdown-toggle" type="button" (click)="toggleDropdown()">-->
+<!--                 {{ selectedJourney || 'Select Journey' }}-->
+<!--               </button>-->
+<!--               <div class="dropdown-menu" [ngClass]="{'show': dropdownOpen}">-->
+<!--                 <a *ngFor="let journey of journeyList" class="dropdown-item" (click)="selectJourney(journey)">-->
+<!--                   {{ journey.title }}-->
+<!--                 </a>-->
+<!--               </div>-->
+<!--             </div>-->
+<!--           </div>-->
 
+          <!-- HTML Dropdown -->
+          <div class="col-md-12 form-group mb-3">
+            <label>Select Journey</label>
+            <select [(ngModel)]="journey" name="selectedJourney" class="form-control" required (change)="onJourneyChange($event)">
+              <option value="" disabled selected>Select Journey</option>
+              <option *ngFor="let journey of journeyList" [value]="journey._id">{{ journey.title }}</option>
+            </select>
+          </div>
 
-             <!--             <p-dropdown-->
-<!--               [options]="journeyList"-->
-<!--               name="droneTechnician"-->
-<!--               [(ngModel)]="journey"-->
-<!--               [resetFilterOnHide]="true"-->
-<!--               [showClear]="true"-->
-<!--               [style]="{'width': '100%'}"-->
-<!--               (onChange)="onJourneyChange($event)"-->
-
-<!--             >-->
-<!--             </p-dropdown>-->
-           </div>
+          <!-- File Upload Button -->
+          <div class="file-upload-wrapper my-3">
+            <label for="fileInput" class="btn btn-outline-primary">
+              <i class="fas fa-upload"></i> Upload Image
+            </label>
+            <input type="file" id="fileInput" (change)="onFileSelected($event)" style="display: none;">
+          </div>
 
         </form>
       </div>
@@ -102,18 +100,28 @@
     <div class="interaction mt-4">
       <i (click)="likePost(item)" class="fas fa-sign-language"></i>
       <span>{{ item.likeCount }}</span>
-      <i (click)="openCommentModal()" class="fas fa-comment mx-5"></i>
+      <i (click)="openCommentModal(item)" class="fas fa-comment mx-5"></i>
+      <span class="mx-0">{{ item.commentCount }}</span>
+
     </div>
     <div *ngIf="isCommentModalOpen" class="modal">
       <div class="modal-content">
         <span class="close" (click)="closeCommentModal()">&times;</span>
-        <textarea type="text" [(ngModel)]="newComment" placeholder="Add a comment"></textarea>
-        <button (click)="addComment()">Submit</button>
+        <!-- Previous Comments Section -->
+        <div class="comments-section">
+          <div *ngFor="let comment of comments" class="comment-item">
+            <strong>{{ comment.content }}</strong>
+          </div>
+        </div>
+
+        <textarea type="text" [(ngModel)]="content" placeholder="Add a comment"></textarea>
+        <button (click)="addComment(item)">Submit</button>
+
       </div>
     </div>
-    <div class="comments-section">
-      <div *ngFor="let comment of comments">{{ comment }}</div>
-    </div>
+<!--    <div class="comments-section">-->
+<!--      <div *ngFor="let comment of comments">{{ comment }}</div>-->
+<!--    </div>-->
     <hr>
   </div>
 

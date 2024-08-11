@@ -245,3 +245,30 @@ button:hover {
     max-width: 150px; /* Adjust the size for larger screens */
   }
 }
+
+.file-upload-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.file-upload-wrapper .btn {
+  display: inline-flex;
+  align-items: center;
+}
+
+.file-upload-wrapper .btn i {
+  margin-right: 8px;
+}
+
+.comments-section {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.comment-item {
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #f1f1f1;
+  border-radius: 3px;
+}

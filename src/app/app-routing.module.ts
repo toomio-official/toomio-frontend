@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {MainUiComponent} from "./view/main-ui/main-ui.component";
 import {LoginComponent} from "./view/login/login.component";
 import {SignupComponent} from "./view/signup/signup.component";
+import {FindUserProfileComponent} from "./view/profile/find-user-profile/find-user-profile.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -31,11 +32,15 @@ const routes: Routes = [
         loadChildren: () => import('./view/home/home.module').then(m => m.HomeModule)
       },
       {
-        path: 'profile-home',
+        path: 'profile',
         loadChildren: () => import('./view/profile/profile.module').then(m => m.ProfileModule)
       },
+
     ]
-  }
+
+  },
+
+
 
 
 ];
