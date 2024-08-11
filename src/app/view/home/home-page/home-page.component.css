@@ -197,3 +197,51 @@ button:hover {
   height: auto;
   display: block;
 }
+
+/* Basic dropdown styling */
+.dropdown-menu {
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 200px; /* Adjust width as needed */
+  max-height: 300px; /* Set max height */
+  overflow-y: auto; /* Scroll if content overflows */
+}
+
+/* Show dropdown */
+.dropdown.show .dropdown-menu {
+  display: block;
+}
+
+/* Dropdown item styling */
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: black;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* space between images */
+}
+
+.image-gallery img {
+  width: 100%; /* Make each image take full width of its container */
+  max-width: 200px; /* Limit the maximum width of each image */
+  height: auto; /* Maintain the aspect ratio */
+  border-radius: 5px; /* Optional: adds rounded corners */
+  object-fit: cover; /* Ensures the image covers the area without distorting */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow */
+}
+
+@media (min-width: 768px) {
+  .image-gallery img {
+    max-width: 150px; /* Adjust the size for larger screens */
+  }
+}

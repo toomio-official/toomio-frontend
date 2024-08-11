@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PostService} from "../../../services/post.service";
+import {readableStreamLikeToAsyncGenerator} from "rxjs/internal/util/isReadableStreamLike";
 
 @Component({
   selector: 'app-home-page',
@@ -10,7 +11,7 @@ export class HomePageComponent implements OnInit {
 
   selectedOption: string = '';
   postName: string = '';
-  postDescription: string = '';
+  content: string = '';
   journeyDescription: any;
   journeyName: any;
   postData: any;
@@ -23,6 +24,13 @@ export class HomePageComponent implements OnInit {
   comments: string[] = [];
   isCommentModalOpen: boolean = false;
   feedData: any;
+  journey: any;
+  imageUrls:[] = [];
+  journeyList:any
+  selectedJourney: any = null; // Adjust based on your journey data type
+  dropdownOpen = false;
+  likeCount: number | undefined
+  likePostData:any;
 
 
   constructor(
@@ -33,7 +41,8 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.userEmail = localStorage.getItem('userEmail');
     console.log('Stored email:', this.userEmail);
-    this.getAllPosts()
+    this.getAllPosts();
+    this.getAllJourneys();
   }
 
   selectOption(option: string): void {
@@ -43,42 +52,79 @@ export class HomePageComponent implements OnInit {
   getAllPosts() {
     this.postService.loadFeed(this.userEmail).subscribe((res: any) => {
       this.feedData = res;
-      debugger
-    })
+debugger
+      // Assuming this.feedData is an array of posts
+      this.feedData.forEach((post:any) => {
+        debugger
+        post.likeCount = post.likes.length; // Set likeCount for each post
+      });
+    });
   }
 
 
-  savePost() {
+  getAllJourneys(){
+  this.postService.getAllJourneys(this.userEmail).subscribe((res:any)=>{
+    this.journeyList = res;
+    // for (var i = 0; i < res.length; i++) {
+    //   this.journeyList.push({
+    //     label:
+    //     res[i].title,
+    //
+    //     value:  res[i].title,
+    //   });
+    // }
+  })
+  }
+
+  onJourneyChange(event: any) {
     debugger
+    const selectedJourneyObject = event.target.value;
+    this.selectedJourney = selectedJourneyObject;
+    this.journey = selectedJourneyObject.id; // or use _id if that's the correct property
+    debugger;
+  }
+
+  selectJourney(journey: any) {
+    this.selectedJourney = journey.title
+    debugger
+    this.journey = journey._id;
+    this.dropdownOpen = false; // Close dropdown after selection
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  savePost() {
     let data = {
       id: 0,
       title: this.postName,
-      description: this.postDescription,
+      content: this.content,
+      userEmail: this.userEmail,
+      journey: this.journey,
+      imageUrls: this.imageUrls
     }
+    debugger
     this.postService.createPost(data).subscribe((res: any) => {
       this.postData = res;
-      debugger
     })
     console.log('Post Name:', this.postName);
-    console.log('Post Description:', this.postDescription);
+    console.log('Post Description:', this.content);
 
     // Optionally, clear the form after saving
     this.postName = '';
-    this.postDescription = '';
+    this.content = '';
   }
 
   saveJourney() {
-    debugger
     let data = {
       // id:0,
       title: this.journeyName,
       description: this.journeyDescription,
       userEmail: this.userEmail
     }
-    debugger
     this.postService.createJourney(data).subscribe((res: any) => {
       this.journeyData = res;
-      debugger
     })
     console.log('Post Name:', this.journeyName);
     console.log('Post Description:', this.journeyDescription);
@@ -102,8 +148,26 @@ export class HomePageComponent implements OnInit {
   //   // this.newComment = '';
   // }
 
-  likePost(): void {
-    this.likes++;
+
+  getPostLikes(data:any){
+    debugger
+this.postService.getPostLikes(data._id).subscribe((res:any)=>{
+  this.likeCount = res.count;
+  debugger
+})
+  }
+
+  likePost(data:any){
+    debugger
+  let  obj = {
+      smPostId: data._id,
+      userEmail:this.userEmail
+    }
+
+    this.postService.likePost(obj).subscribe((res:any)=>{
+      this.likePostData = res;
+      this.getPostLikes(obj)
+    })
   }
 
   //

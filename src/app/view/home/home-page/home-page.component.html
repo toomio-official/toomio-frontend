@@ -21,9 +21,41 @@
             <input type="text" id="postName" [(ngModel)]="postName" name="postName" required placeholder="post name?">
           </div>
           <div>
-            <textarea id="postDescription" [(ngModel)]="postDescription" name="postDescription" required
-                      placeholder="description?"></textarea>
+            <textarea id="postDescription" [(ngModel)]="content" name="content" required
+                      placeholder="Content?"></textarea>
           </div>
+           <div class="col-md-12 form-group mb-3" >
+             <div class="dropdown">
+               <button class="btn btn-secondary dropdown-toggle" type="button" (click)="toggleDropdown()">
+                 {{ selectedJourney || 'Select Journey' }}
+               </button>
+               <div class="dropdown-menu" [ngClass]="{'show': dropdownOpen}">
+                 <a *ngFor="let journey of journeyList" class="dropdown-item" (click)="selectJourney(journey)">
+                   {{ journey.title }}
+                 </a>
+               </div>
+             </div>
+<!--             <label for="journeySelect">Select a Journey:</label>-->
+<!--             <select id="journeySelect" [(ngModel)]="journey" (change)="onJourneyChange($event)">-->
+<!--               <option *ngFor="let journey of journeyList" [ngValue]="journey">-->
+<!--                 {{ journey.title }}-->
+<!--               </option>-->
+<!--             </select>-->
+
+
+             <!--             <p-dropdown-->
+<!--               [options]="journeyList"-->
+<!--               name="droneTechnician"-->
+<!--               [(ngModel)]="journey"-->
+<!--               [resetFilterOnHide]="true"-->
+<!--               [showClear]="true"-->
+<!--               [style]="{'width': '100%'}"-->
+<!--               (onChange)="onJourneyChange($event)"-->
+
+<!--             >-->
+<!--             </p-dropdown>-->
+           </div>
+
         </form>
       </div>
     </div>
@@ -68,8 +100,8 @@
       src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHx1aSUyMHV4fGVufDB8fHx8MTYzMjM5NzI3OA&ixlib=rb-1.2.1&q=80&w=1080"
       alt="Nature" class="nature-img">
     <div class="interaction mt-4">
-      <i (click)="likePost()" class="fas fa-sign-language"></i>
-      <span>{{ likes }}</span>
+      <i (click)="likePost(item)" class="fas fa-sign-language"></i>
+      <span>{{ item.likeCount }}</span>
       <i (click)="openCommentModal()" class="fas fa-comment mx-5"></i>
     </div>
     <div *ngIf="isCommentModalOpen" class="modal">
@@ -82,7 +114,48 @@
     <div class="comments-section">
       <div *ngFor="let comment of comments">{{ comment }}</div>
     </div>
+    <hr>
   </div>
+
+
+<!--  <div class="col-md-10 mx-4" *ngFor="let item of feedData">-->
+<!--    <div id="whois" class="d-flex align-items-center">-->
+<!--      <div class="profile-image-wrapper">-->
+<!--        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image">-->
+<!--      </div>-->
+<!--      <div class="text-start mx-2">-->
+<!--        <div class="fw-bold">Bobur</div>-->
+<!--        <div class="fw-lighter">{{ item.userEmail }}</div>-->
+<!--      </div>-->
+<!--      <h3 class="ms-3">{{ item.title }}</h3>-->
+<!--    </div>-->
+<!--    <p>{{ item.content }}</p>-->
+
+<!--    &lt;!&ndash; Iterating over images array &ndash;&gt;-->
+<!--    <div class="image-gallery">-->
+<!--      <img *ngFor="let imageUrl of item.imageUrls"-->
+<!--           [src]="imageUrl"-->
+<!--           alt="Image"-->
+<!--           class="nature-img mx-1 my-1">-->
+<!--    </div>-->
+
+<!--    <div class="interaction mt-4">-->
+<!--      <i (click)="likePost(item)" class="fas fa-sign-language"></i>-->
+<!--      <span>{{ item.likeCount }}</span>-->
+<!--      <i (click)="openCommentModal()" class="fas fa-comment mx-5"></i>-->
+<!--    </div>-->
+
+<!--    <div *ngIf="isCommentModalOpen" class="modal">-->
+<!--      <div class="modal-content">-->
+<!--        <span class="close" (click)="closeCommentModal()">&times;</span>-->
+<!--        <textarea type="text" [(ngModel)]="newComment" placeholder="Add a comment"></textarea>-->
+<!--        <button (click)="addComment()">Submit</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <hr>-->
+
+<!--  </div>-->
+
 
   <hr>
 </div>

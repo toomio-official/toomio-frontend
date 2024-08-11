@@ -32,4 +32,16 @@ export class PostService {
     return this.http.get(this.apiPostService.loadFeed + email)
   }
 
+  getAllJourneys(email:any){
+    return this.http.get(this.apiPostService.getAllJourneys + email)
+  }
+
+  getPostLikes(id:any){
+    return this.http.get(this.apiPostService.getPostLikes + id + '/likes/count')
+  }
+
+  getAllPosts(email:any){
+    return this.http.get(this.apiPostService.getAllPosts + email)
+
+  }
 }

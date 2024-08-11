@@ -10,6 +10,9 @@ import {Location} from "@angular/common";
 export class ProfileHomeComponent implements OnInit{
 
   selectedOption: string = '';
+  userEmail: string | null = null;
+  journeyList:any
+  postList:any
 
   constructor(
     private postService: PostService,
@@ -18,6 +21,10 @@ export class ProfileHomeComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.userEmail = localStorage.getItem('userEmail');
+    console.log('Stored email:', this.userEmail);
+    this.getAllPosts();
+    this.getAllJourneys();
   }
 
   selectOption(option: string): void {
@@ -27,4 +34,26 @@ export class ProfileHomeComponent implements OnInit{
   goBack(): void {
     this.location.back();
   }
+
+  getAllPosts(){
+    this.postService.getAllPosts(this.userEmail).subscribe((res:any)=>{
+      this.postList= res
+    })
+  }
+
+  getAllJourneys(){
+    this.postService.getAllJourneys(this.userEmail).subscribe((res:any)=>{
+      this.journeyList = res;
+      // for (var i = 0; i < res.length; i++) {
+      //   this.journeyList.push({
+      //     label:
+      //     res[i].title,
+      //
+      //     value:  res[i].title,
+      //   });
+      // }
+    })
+  }
+
+
 }
