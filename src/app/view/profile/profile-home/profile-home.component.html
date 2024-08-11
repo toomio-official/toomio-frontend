@@ -36,6 +36,86 @@
     </div>
   </div>
 
+
+  <div *ngIf="selectedOption === 'post'">
+    <div class="col-md-10 mx-4" *ngFor="let item of postList">
+      <div id="whois" class="d-flex align-items-center">
+        <div class="profile-image-wrapper">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image" (click)="findProfile()">
+        </div>
+        <div class="text-start mx-2">
+          <div class="fw-bold">Bobur</div>
+          <div class="fw-lighter">{{ item.userEmail }}</div>
+        </div>
+        <h3 class="ms-3">{{ item.title }}</h3>
+      </div>
+      <p>{{ item.content }}</p>
+      <img
+        src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHx1aSUyMHV4fGVufDB8fHx8MTYzMjM5NzI3OA&ixlib=rb-1.2.1&q=80&w=1080"
+        alt="Nature" class="nature-img">
+      <div class="interaction mt-4">
+        <i (click)="likePost(item)" class="fas fa-sign-language"></i>
+        <span>{{ item.likeCount }}</span>
+        <i (click)="openCommentModal(item)" class="fas fa-comment mx-5"></i>
+        <span class="mx-0">{{ item.commentCount }}</span>
+      </div>
+      <div *ngIf="isCommentModalOpen && selectedPostId === item._id" class="modal">
+        <div class="modal-content">
+          <span class="close" (click)="closeCommentModal()">&times;</span>
+          <!-- Previous Comments Section -->
+          <div class="comments-section">
+            <div *ngFor="let comment of comments" class="comment-item">
+              <strong>{{ comment.userEmail }}:</strong> {{ comment.content }}
+            </div>
+          </div>
+          <textarea type="text" [(ngModel)]="content" placeholder="Add a comment"></textarea>
+          <button (click)="addComment(item)">Submit</button>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </div>
+
+
+  <div *ngIf="selectedOption === 'journey'">
+    <div class="col-md-10 mx-4" *ngFor="let item of journeyList">
+      <div id="whois" class="d-flex align-items-center">
+        <div class="profile-image-wrapper">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image">
+        </div>
+        <div class="text-start mx-2">
+          <div class="fw-bold">Bobur</div>
+          <div class="fw-lighter">{{ item.userEmail }}</div>
+        </div>
+        <h3 class="ms-3">{{ item.title }}</h3>
+      </div>
+      <p>{{ item.content }}</p>
+      <img
+        src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHx1aSUyMHV4fGVufDB8fHx8MTYzMjM5NzI3OA&ixlib=rb-1.2.1&q=80&w=1080"
+        alt="Nature" class="nature-img">
+      <div class="interaction mt-4">
+        <i (click)="likePost(item)" class="fas fa-sign-language"></i>
+        <span>{{ item.likeCount }}</span>
+        <i (click)="openCommentModal(item)" class="fas fa-comment mx-5"></i>
+        <span class="mx-0">{{ item.commentCount }}</span>
+      </div>
+      <div *ngIf="isCommentModalOpen && selectedPostId === item._id" class="modal">
+        <div class="modal-content">
+          <span class="close" (click)="closeCommentModal()">&times;</span>
+          <!-- Previous Comments Section -->
+          <div class="comments-section">
+            <div *ngFor="let comment of comments" class="comment-item">
+              <strong>{{ comment.userEmail }}:</strong> {{ comment.content }}
+            </div>
+          </div>
+          <textarea type="text" [(ngModel)]="content" placeholder="Add a comment"></textarea>
+          <button (click)="addComment(item)">Submit</button>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </div>
+
 </div>
 
 
