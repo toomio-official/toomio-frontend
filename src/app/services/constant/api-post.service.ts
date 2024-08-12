@@ -14,7 +14,11 @@ export class ApiPostService {
   private readonly _getAllJourneys: string;
   private readonly _getPostLikes:string;
   private readonly _getAllPosts:string;
-  private readonly _getAllPostComments:string
+  private readonly _getAllPostComments:string;
+  private readonly _getFollowersCount: string;
+  private readonly _getFollowingCount:string;
+  private readonly _followAUser:string;
+  private readonly _getAllNotifications:string;
 
   constructor(private _apiService: ApiService) {
     this._createPost = _apiService.imsApiGatewayUrl + 'posts';
@@ -26,7 +30,12 @@ export class ApiPostService {
     this._getAllJourneys = _apiService.imsApiGatewayUrl + 'journeys/user/';
     this._getPostLikes = _apiService.imsApiGatewayUrl + 'posts/';
     this._getAllPosts = _apiService.imsApiGatewayUrl + 'posts/user/';
-    this._getAllPostComments = _apiService.imsApiGatewayUrl + 'posts/'
+    this._getAllPostComments = _apiService.imsApiGatewayUrl + 'posts/';
+    this._getFollowersCount = _apiService.imsApiGatewayUrl + 'users/';
+    this._getFollowingCount = _apiService.imsApiGatewayUrl + 'users/';
+    this._followAUser = _apiService.imsApiGatewayUrl + 'users/follow';
+    this._getAllNotifications = _apiService.imsApiGatewayUrl + 'notifications?email='
+
   }
 
   get createPost():string {
@@ -58,5 +67,17 @@ export class ApiPostService {
   }
   get getAllPostComments():string {
     return this._getAllPostComments;
+  }
+  get getFollowersCount(){
+    return this._getFollowersCount;
+  }
+  get getFollowingCount(){
+    return this._getFollowingCount;
+  }
+  get followAUser(){
+    return this._followAUser;
+  }
+  get getAllNotification(){
+    return this._getAllNotifications;
   }
 }

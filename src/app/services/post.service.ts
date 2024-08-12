@@ -47,4 +47,20 @@ export class PostService {
   getAllPostComments(id:any){
     return this.http.get(this.apiPostService.getAllPostComments + id + '/comments')
   }
+
+  getFollowersCount(email:any){
+    return this.http.get(this.apiPostService.getFollowersCount + email + '/followers-count')
+  }
+
+  getFollowingCount(email:any){
+    return this.http.get(this.apiPostService.getFollowingCount + email + '/following-count')
+  }
+
+  followAUser(data:any){
+    return this.http.put(this.apiPostService.followAUser, data);
+  }
+
+  getAllNotifications(email:any){
+    return this.http.get(this.apiPostService.getAllNotification + email,)
+  }
 }
