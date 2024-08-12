@@ -12,7 +12,6 @@ export class MainUiComponent {
   constructor(private router: Router) {}
 
   toggleDropdown() {
-    debugger
     this.dropdownOpen = !this.dropdownOpen;
   }
 

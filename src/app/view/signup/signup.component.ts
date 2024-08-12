@@ -83,11 +83,9 @@ export class SignupComponent implements OnInit {
       gender: form.form.value.gender,
       birthDate: form.form.value.birthDate,
     }
-    debugger
     this.loginService.userSignIn(obj).subscribe(
       (res: any) => {
         this.signUpData = res;
-        debugger
         this.toastr.success('Sign Up successful!', 'Success');
 
         this.router.navigate(['/admin/home-page']);
