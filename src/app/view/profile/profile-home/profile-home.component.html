@@ -17,8 +17,8 @@
   <p class="job">Front-end Developer</p>
   <p><i class="fas fa-map-marker-alt"></i> America</p>
   <div class="follow-info">
-    <p>Following: 67</p>
-    <p>Followers: 100</p>
+    <p>Following: {{ followingCount }}</p>
+    <p>Followers: {{followersCount}}</p>
   </div>
 
   <div>
@@ -41,13 +41,12 @@
     <div class="col-md-10 mx-4" *ngFor="let item of postList">
       <div id="whois" class="d-flex align-items-center">
         <div class="profile-image-wrapper">
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image" (click)="findProfile()">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image" (click)="findProfile(item)">
         </div>
         <div class="text-start mx-2">
-          <div class="fw-bold">Bobur</div>
-          <div class="fw-lighter">{{ item.userEmail }}</div>
+          <div class="title">#{{ item.title }}</div>
+          <div class="fw-bold username">{{ item.userName }}</div>
         </div>
-        <h3 class="ms-3">{{ item.title }}</h3>
       </div>
       <p>{{ item.content }}</p>
       <img
@@ -65,13 +64,15 @@
           <!-- Previous Comments Section -->
           <div class="comments-section">
             <div *ngFor="let comment of comments" class="comment-item">
-              <strong>{{ comment.userEmail }}:</strong> {{ comment.content }}
+<!--              <strong>{{ comment.userEmail }}:</strong> {{ comment.content }}-->
+              <strong>{{ comment.content }}</strong>
             </div>
           </div>
           <textarea type="text" [(ngModel)]="content" placeholder="Add a comment"></textarea>
           <button (click)="addComment(item)">Submit</button>
         </div>
       </div>
+
       <hr>
     </div>
   </div>
@@ -84,10 +85,9 @@
           <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image">
         </div>
         <div class="text-start mx-2">
-          <div class="fw-bold">Bobur</div>
-          <div class="fw-lighter">{{ item.userEmail }}</div>
+          <div class="title">#{{ item.title }}</div>
+          <div class="fw-bold username">{{ item.userName }}</div>
         </div>
-        <h3 class="ms-3">{{ item.title }}</h3>
       </div>
       <p>{{ item.content }}</p>
       <img
