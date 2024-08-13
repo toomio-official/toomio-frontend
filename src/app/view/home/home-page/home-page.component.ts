@@ -31,7 +31,7 @@ export class HomePageComponent implements OnInit {
   journeyList: any
   selectedJourney: any = null; // Adjust based on your journey data type
   dropdownOpen = false;
-  likeCount: number | undefined
+  likeCount: any
   likePostData: any;
   userDetails:any;
   userName:any;
@@ -64,6 +64,7 @@ export class HomePageComponent implements OnInit {
       this.feedData.forEach((post: any) => {
         // debugger
         post.likeCount = post.likes.length; // Set likeCount for each post
+        this.likeCount = post.likes.length
         post.commentCount = post.comments.length
       });
     });
@@ -84,17 +85,13 @@ export class HomePageComponent implements OnInit {
     this.postService.getUserDetails(obj).subscribe((res:any)=>{
       this.userDetails = res.UserAttributes[7];
       this.userName = res.UserAttributes[4];
-
-      debugger
     })
   }
 
   onJourneyChange(event: any) {
-    // debugger
     const selectedJourneyObject = event.target.value;
     this.selectedJourney = selectedJourneyObject;
-    this.journey = selectedJourneyObject; // or use _id if that's the correct property
-    // debugger;
+    this.journey = selectedJourneyObject;
   }
 
   selectJourney(journey: any) {
@@ -114,7 +111,7 @@ export class HomePageComponent implements OnInit {
       title: this.postName,
       content: this.content,
       userEmail: this.userEmail,
-      journey: this.selectedJourney, // assuming journey is the selected journey
+      journey: this.selectedJourney,
       imageUrls: this.imageUrls
     };
 
@@ -154,20 +151,6 @@ export class HomePageComponent implements OnInit {
     this.journeyDescription = '';
   }
 
-  // likePost(postId: number) {
-  //   // this.postService.likePost(postId);
-  // }
-  //
-  // addComment(postId: number) {
-  //   // const comment: Comment = {
-  //   //   id: 0,
-  //   //   postId: postId,
-  //   //   text: this.newComment
-  //   // };
-  //   // this.postService.addComment(postId, comment);
-  //   // this.newComment = '';
-  // }
-
 
   getPostLikes(data: any) {
     this.postService.getPostLikes(data._id).subscribe((res: any) => {
@@ -177,7 +160,6 @@ export class HomePageComponent implements OnInit {
   }
 
   likePost(data: any) {
-    debugger
     let obj = {
       smPostId: data._id,
       userEmail: this.userEmail
@@ -185,7 +167,9 @@ export class HomePageComponent implements OnInit {
 
     this.postService.likePost(obj).subscribe((res: any) => {
       this.likePostData = res;
-      this.getPostLikes(obj)
+      this.getAllPosts();
+
+      // this.getPostLikes(obj)
     })
   }
 

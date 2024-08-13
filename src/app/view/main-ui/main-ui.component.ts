@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {PostService} from "../../services/post.service";
 
@@ -7,16 +7,23 @@ import {PostService} from "../../services/post.service";
   templateUrl: './main-ui.component.html',
   styleUrls: ['./main-ui.component.css']
 })
-export class MainUiComponent {
+export class MainUiComponent implements OnInit {
   dropdownOpen = false;
   userName: string = '';
   searchUserData:any
-
+  userEmail: string | null = null;
+  userDetails:any
 
   constructor(
     private router: Router,
     private postService: PostService,
   ) {
+  }
+
+  ngOnInit(): void {
+    this.userEmail = localStorage.getItem('userEmail');
+    console.log('Stored email:', this.userEmail);
+    this.getUserDetails();
   }
 
   toggleDropdown() {
@@ -31,7 +38,17 @@ export class MainUiComponent {
   searchUser() {
 this.postService.searchUsers(this.userName).subscribe((res:any)=>{
   this.searchUserData = res;
-  debugger
 })
   }
+
+  getUserDetails(){
+    let obj = {
+      email: this.userEmail,
+    }
+
+    this.postService.getUserDetails(obj).subscribe((res:any)=>{
+      this.userDetails = res.UserAttributes[7];
+    })
+  }
+
 }

@@ -33,11 +33,10 @@
       <div id="space"></div>
       <div id="whois" class="d-flex position-relative">
         <div>
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt=".." (click)="toggleDropdown()">
+          <img src="{{userDetails.Value}}" alt=".." (click)="toggleDropdown()">
         </div>
         <div class="text-start mx-2">
-          <div class="fw-bold">Bobur</div>
-          <div class="fw-lighter">@bobur_mavlonov</div>
+          <div class="fw-bold">{{userEmail}}</div>
         </div>
         <!-- Dropdown Menu -->
         <div *ngIf="dropdownOpen" class="dropdown-menu position-absolute show">
