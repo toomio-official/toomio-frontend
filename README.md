@@ -1,27 +1,38 @@
-# ToomioFrontend
+# Toomio Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+This is the frontend repository for Toomio, a social media application built with Angular.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Toomio frontend currently includes the following features:
 
-## Code scaffolding
+1. User Authentication (Login and Signup)
+2. Home Feed
+3. Create and View Posts
+4. Like and Comment on Posts
+5. User Profiles
+6. Create and View Journeys
+7. Follow/Unfollow Users
+8. Notifications
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Running the Application
 
-## Build
+To run the Toomio frontend application, follow these steps:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Install dependencies:
 
-## Running unit tests
+   ```
+   npm install --legacy-peer-deps
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. Start the development server:
 
-## Running end-to-end tests
+   ```
+   ng serve
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. Open your browser and visit `http://localhost:4200` to view the application.
 
-## Further help
+## Deployment
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The Toomio frontend is deployed and accessible at https://www.toomio.com
