@@ -83,15 +83,17 @@
   <hr>
 
   <div class="col-md-10 mx-4" *ngFor="let item of feedData">
-    <div id="whois" class="d-flex align-items-center"  >
-      <div class="profile-image-wrapper">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image">
+    <div id="whois" class="d-flex align-items-start flex-column">
+      <div class="d-flex align-items-center">
+        <div class="profile-image-wrapper">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image" (click)="findProfile(item)">
+        </div>
+        <div class="text-start mx-2">
+          <div class="title">#{{ item.title }}</div>
+
+          <div class="fw-bold username">{{ item.userName }}</div>
+        </div>
       </div>
-      <div class="text-start mx-2">
-        <div class="fw-bold">Bobur</div>
-        <div class="fw-lighter">{{ item.userEmail }}</div>
-      </div>
-      <h3 class="ms-3">{{ item.title }}</h3>
     </div>
     <p>{{ item.content }}</p>
     <img

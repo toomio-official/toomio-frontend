@@ -29,17 +29,17 @@ export class LoginComponent implements OnInit{
       email: this.email,
       password: this.password,
     };
-debugger
+// debugger
     this.loginService.userLogIn(obj).subscribe(
       (res: any) => {
         this.loginData = res;
-        debugger
+        // debugger
         localStorage.setItem('userEmail', this.email);
         this.toastr.success('Login successful!', 'Success');
         this.router.navigate(['/admin/home-page']);
       },
       (error: any) => {
-        debugger
+        // debugger
         console.error('Error during login:', error);
         if (error.error && Array.isArray(error.error.message)) {
           error.error.message.forEach((msg: string) => {

@@ -24,6 +24,10 @@ export class FindUserProfileComponent   implements OnInit{
   content: any;
   likePostData: any;
   likeCount:any;
+  followersCount:any;
+  followingCount:any;
+  profileUserEmail:string | null = null
+
 
   constructor(
     private postService: PostService,
@@ -34,11 +38,14 @@ export class FindUserProfileComponent   implements OnInit{
   }
 
   ngOnInit(): void {
-    debugger
     this.userEmail = localStorage.getItem('userEmail');
     console.log('Stored email:', this.userEmail);
+    this.profileUserEmail = localStorage.getItem('userProfileEmail');
+    console.log('Stored user email:', this.profileUserEmail);
     this.getAllPosts();
     this.getAllJourneys();
+    this.getFollowersCount();
+    this.getFollowingCount();
   }
 
   // selectOption(option: string): void {
@@ -60,7 +67,7 @@ export class FindUserProfileComponent   implements OnInit{
   }
 
   getAllPosts(){
-    this.postService.getAllPosts(this.userEmail).subscribe((res:any)=>{
+    this.postService.getAllPosts(this.profileUserEmail).subscribe((res:any)=>{
       this.postList= res;
       this.postList.forEach((post: any) => {
         post.likeCount = post.likes.length; // Set likeCount for each post
@@ -70,7 +77,7 @@ export class FindUserProfileComponent   implements OnInit{
   }
 
   getAllJourneys(){
-    this.postService.getAllJourneys(this.userEmail).subscribe((res:any)=>{
+    this.postService.getAllJourneys(this.profileUserEmail).subscribe((res:any)=>{
       this.journeyList = res;
       this.journeyList.forEach((post: any) => {
         post.likeCount = post.likes.length; // Set likeCount for each post
@@ -106,9 +113,10 @@ export class FindUserProfileComponent   implements OnInit{
 
   openCommentModal(data:any) {
     this.isCommentModalOpen = true;
+    this.selectedPostId = data._id;  // Ensure this is set to the current item's ID
+
     this.postService.getAllPostComments(data._id).subscribe((res:any)=>{
       this.comments = res;
-      debugger
     })
 
   }
@@ -122,13 +130,23 @@ export class FindUserProfileComponent   implements OnInit{
   getPostLikes(data: any) {
     this.postService.getPostLikes(data._id).subscribe((res: any) => {
       this.likeCount = res.count;
-      debugger
     })
   }
 
   findProfile(){
-    debugger
     this.router.navigate(['/user-profile'])
+  }
+
+  getFollowersCount(){
+    this.postService.getFollowersCount(this.userEmail).subscribe((res:any)=>{
+      this.followersCount = res.count;
+    })
+  }
+
+  getFollowingCount(){
+    this.postService.getFollowingCount(this.userEmail).subscribe((res:any)=>{
+      this.followingCount = res.count;
+    })
   }
 
 

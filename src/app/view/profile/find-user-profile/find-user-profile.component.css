@@ -99,6 +99,7 @@ span.underline {
   max-width: 100%;
   height: auto;
   margin-top: 10px;
+  border-radius: 20px; /* Adjust the value as needed */
 }
 
 .profile-image-wrapper {
@@ -112,4 +113,66 @@ span.underline {
   width: 100%;
   height: auto;
   display: block;
+}
+
+
+.modal {
+  display: flex; /* Ensure this is correctly applied */
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Background color with transparency */
+}
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid #888;
+  width: 300px; /* Smaller width */
+  border-radius: 5px; /* Optional: Add some rounding to the corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for depth */
+}
+.comments-section {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.comment-item {
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #f1f1f1;
+  border-radius: 3px;
+}
+
+.title {
+  font-weight: bold;
+  color: #48b1f1;
+}
+
+.username {
+  font-weight: bold;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
 }

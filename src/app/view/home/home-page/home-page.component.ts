@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PostService} from "../../../services/post.service";
 import {readableStreamLikeToAsyncGenerator} from "rxjs/internal/util/isReadableStreamLike";
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-page',
@@ -36,7 +37,8 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router,
   ) {
   }
 
@@ -56,7 +58,7 @@ export class HomePageComponent implements OnInit {
       this.feedData = res;
       // Assuming this.feedData is an array of posts
       this.feedData.forEach((post: any) => {
-        debugger
+        // debugger
         post.likeCount = post.likes.length; // Set likeCount for each post
         post.commentCount = post.comments.length
       });
@@ -79,17 +81,17 @@ export class HomePageComponent implements OnInit {
   }
 
   onJourneyChange(event: any) {
-    debugger
+    // debugger
     const selectedJourneyObject = event.target.value;
     this.selectedJourney = selectedJourneyObject;
     this.journey = selectedJourneyObject; // or use _id if that's the correct property
-    debugger;
+    // debugger;
   }
 
   selectJourney(journey: any) {
-    debugger
+    // debugger
     this.selectedJourney = journey.title
-    debugger
+    // debugger
     this.journey = journey._id;
     this.dropdownOpen = false; // Close dropdown after selection
   }
@@ -161,12 +163,12 @@ export class HomePageComponent implements OnInit {
   getPostLikes(data: any) {
     this.postService.getPostLikes(data._id).subscribe((res: any) => {
       this.likeCount = res.count;
-      debugger
+      // debugger
     })
   }
 
   likePost(data: any) {
-    debugger
+    // debugger
     let obj = {
       smPostId: data._id,
       userEmail: this.userEmail
@@ -179,7 +181,7 @@ export class HomePageComponent implements OnInit {
   }
 
   addComment(data:any) {
-    debugger
+    // debugger
     let obj= {
       smPostId: data._id,
       userEmail: data.userEmail,
@@ -189,16 +191,14 @@ export class HomePageComponent implements OnInit {
       this.comments = res;
       this.content = '';
       this.closeCommentModal()
-      debugger
+      // debugger
     })
   }
 
   openCommentModal(data:any) {
-    debugger
     this.isCommentModalOpen = true;
     this.postService.getAllPostComments(data._id).subscribe((res:any)=>{
       this.comments = res;
-      debugger
     })
 
   }
@@ -214,6 +214,9 @@ export class HomePageComponent implements OnInit {
       console.log('File selected:', file);
     }
   }
-
+  findProfile(data:any){
+    localStorage.setItem('userProfileEmail', data.userEmail);
+    this.router.navigate(['/admin/profile/find-user-profile'])
+  }
 
 }
