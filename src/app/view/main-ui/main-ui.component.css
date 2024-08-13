@@ -119,9 +119,9 @@
   margin: 0 auto;
 }
 
-#inpt {
-  padding-right: 2.5rem; /* Adjust to ensure space for the icon */
-}
+/*#inpt {*/
+/*  padding-right: 2.5rem; !* Adjust to ensure space for the icon *!*/
+/*}*/
 
 .bi-search {
   font-size: 1.2rem; /* Adjust icon size */

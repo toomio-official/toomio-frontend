@@ -1,18 +1,21 @@
 <div>
   <h4 class="p-2 mx-2 mt-2">Notifications</h4>
   <hr>
+
   <div *ngFor="let item of notifications ">
     <div class="d-flex flex-row mx-3 notification">
       <div class="d-flex justify-content-center align-items-center pp">
-        <img src="assets/images/download.jpeg" class="rounded float-start" alt="...">
+        <i class="bi bi-bell"></i> <!-- Bootstrap notification bell icon -->
       </div>
       <div class="mt-2 mx-1">
-        <label class="fw-bold">Kevin</label>
-        <label class="px-2 fw-lighter">@kevin1</label>
-        <label class="px-1 fw-lighter">Sep-6</label>
+        <label class="fw-bold">{{item.userEmail}}</label>
+<!--        <label class="px-2 fw-lighter">@kevin1</label>-->
+<!--        <label class="px-1 fw-lighter">Sep-6</label>-->
         <div>{{ item.notificationString }}</div>
       </div>
     </div>
+<!--  </div>-->
+
 <!--    <div class="d-flex flex-row mx-3 notification">-->
 <!--      <div class="d-flex justify-content-center align-items-center pp">-->
 <!--        <img src="assets/images/download%20(1).jpeg" class="rounded float-start" alt="...">-->

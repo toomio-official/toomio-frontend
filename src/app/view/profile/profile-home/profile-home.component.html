@@ -10,10 +10,11 @@
   <img class="cover-pic"
        src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHx1aSUyMHV4fGVufDB8fHx8MTYzMjM5NzI3OA&ixlib=rb-1.2.1&q=80&w=1080"
        alt="Cover Picture">
-  <img class="profile-pic" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile Picture">
+<!--  <img class="profile-pic" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile Picture">-->
+  <img class="profile-pic" src="{{userDetails.Value}}" alt="Profile Picture">
 </div>
 <div class="profile-info">
-  <h2>Peter</h2>
+  <h2>{{userName.Value}}</h2>
   <p class="job">Front-end Developer</p>
   <p><i class="fas fa-map-marker-alt"></i> America</p>
   <div class="follow-info">
@@ -31,7 +32,7 @@
       <span
         (click)="selectOption('journey')"
         [ngClass]="{'underline': selectedOption === 'journey'}">
-        journeys
+        Journeys
       </span>
     </div>
   </div>

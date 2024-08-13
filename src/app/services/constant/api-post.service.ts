@@ -19,7 +19,8 @@ export class ApiPostService {
   private readonly _getFollowingCount:string;
   private readonly _followAUser:string;
   private readonly _getAllNotifications:string;
-  private readonly _searchUsers:string
+  private readonly _searchUsers:string;
+  private readonly  _getUserDetails:string
 
   constructor(private _apiService: ApiService) {
     this._createPost = _apiService.imsApiGatewayUrl + 'posts';
@@ -37,6 +38,7 @@ export class ApiPostService {
     this._followAUser = _apiService.imsApiGatewayUrl + 'users/follow';
     this._getAllNotifications = _apiService.imsApiGatewayUrl + 'notifications?email=';
     this._searchUsers = _apiService.imsApiGatewayUrl + 'auth/search-users'
+    this._getUserDetails = _apiService.imsApiGatewayUrl + 'auth/get-user';
 
   }
 
@@ -84,5 +86,8 @@ export class ApiPostService {
   }
   get searchUsers(){
     return this._searchUsers;
+  }
+  get getUserDetails(){
+    return this._getUserDetails;
   }
 }

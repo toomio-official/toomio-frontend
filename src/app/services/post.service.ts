@@ -69,4 +69,8 @@ export class PostService {
     const params = new HttpParams().set('name', userName);
     return this.http.get(this.apiPostService.searchUsers, { params });
   }
+
+  getUserDetails(email: any){
+    return this.http.post(this.apiPostService.getUserDetails, email)
+  }
 }
