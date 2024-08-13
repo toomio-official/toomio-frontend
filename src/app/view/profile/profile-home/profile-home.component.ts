@@ -24,7 +24,8 @@ export class ProfileHomeComponent implements OnInit{
   likeCount:any;
   followersCount:any;
   followingCount:any;
-
+  userDetails:any;
+  userName:any;
 
   constructor(
     private postService: PostService,
@@ -41,6 +42,7 @@ export class ProfileHomeComponent implements OnInit{
     this.getAllJourneys();
     this.getFollowersCount();
     this.getFollowingCount();
+    this.getUserDetails();
   }
 
   // selectOption(option: string): void {
@@ -78,6 +80,17 @@ export class ProfileHomeComponent implements OnInit{
         post.likeCount = post.likes?.length; // Set likeCount for each post
         post.commentCount = post.comments?.length
       });
+    })
+  }
+
+  getUserDetails(){
+    let obj = {
+      email: this.userEmail,
+    }
+
+    this.postService.getUserDetails(obj).subscribe((res:any)=>{
+      this.userDetails = res.UserAttributes[7];
+      this.userName = res.UserAttributes[4];
     })
   }
 

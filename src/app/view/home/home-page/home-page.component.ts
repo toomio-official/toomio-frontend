@@ -33,6 +33,9 @@ export class HomePageComponent implements OnInit {
   dropdownOpen = false;
   likeCount: number | undefined
   likePostData: any;
+  userDetails:any;
+  userName:any;
+
 
 
   constructor(
@@ -47,6 +50,7 @@ export class HomePageComponent implements OnInit {
     console.log('Stored email:', this.userEmail);
     this.getAllPosts();
     this.getAllJourneys();
+    this.getUserDetails();
   }
 
   selectOption(option: string): void {
@@ -69,14 +73,19 @@ export class HomePageComponent implements OnInit {
   getAllJourneys() {
     this.postService.getAllJourneys(this.userEmail).subscribe((res: any) => {
       this.journeyList = res;
-      // for (var i = 0; i < res.length; i++) {
-      //   this.journeyList.push({
-      //     label:
-      //     res[i].title,
-      //
-      //     value:  res[i].title,
-      //   });
-      // }
+    })
+  }
+
+  getUserDetails(){
+    let obj = {
+      email: this.userEmail,
+    }
+
+    this.postService.getUserDetails(obj).subscribe((res:any)=>{
+      this.userDetails = res.UserAttributes[7];
+      this.userName = res.UserAttributes[4];
+
+      debugger
     })
   }
 
@@ -168,7 +177,7 @@ export class HomePageComponent implements OnInit {
   }
 
   likePost(data: any) {
-    // debugger
+    debugger
     let obj = {
       smPostId: data._id,
       userEmail: this.userEmail

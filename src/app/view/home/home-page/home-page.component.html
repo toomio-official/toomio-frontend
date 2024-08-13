@@ -18,11 +18,11 @@
       <div class="col-md-11 mx-2">
         <form (ngSubmit)="savePost()">
           <div>
-            <input type="text" id="postName" [(ngModel)]="postName" name="postName" required placeholder="post name?">
+            <input type="text" id="postName" [(ngModel)]="postName" name="postName" required placeholder="PosName">
           </div>
           <div>
             <textarea id="postDescription" [(ngModel)]="content" name="content" required
-                      placeholder="Content?"></textarea>
+                      placeholder="Description"></textarea>
           </div>
 <!--           <div class="col-md-12 form-group mb-3" >-->
 <!--             <div class="dropdown">-->
@@ -67,11 +67,11 @@
         <form (ngSubmit)="savePost()">
           <div>
             <input type="text" id="journeyName" [(ngModel)]="journeyName" name="postName" required
-                   placeholder="Journey name?">
+                   placeholder="Journey Name">
           </div>
           <div>
             <textarea id="journeyDescription" [(ngModel)]="journeyDescription" name="postDescription" required
-                      placeholder="description?"></textarea>
+                      placeholder="Description"></textarea>
           </div>
         </form>
       </div>
@@ -99,6 +99,9 @@
     <img
       src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHx1aSUyMHV4fGVufDB8fHx8MTYzMjM5NzI3OA&ixlib=rb-1.2.1&q=80&w=1080"
       alt="Nature" class="nature-img">
+
+<!--    <img src="{{userDetails.value}}" alt="Nature" class="nature-img">-->
+
     <div class="interaction mt-4">
       <i (click)="likePost(item)" class="fas fa-sign-language"></i>
       <span>{{ item.likeCount }}</span>
