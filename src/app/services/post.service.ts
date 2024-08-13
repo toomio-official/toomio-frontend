@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {ApiPostService} from "./constant/api-post.service";
 
 @Injectable({
@@ -62,5 +62,11 @@ export class PostService {
 
   getAllNotifications(email:any){
     return this.http.get(this.apiPostService.getAllNotification + email,)
+  }
+
+  searchUsers(userName: string) {
+    debugger
+    const params = new HttpParams().set('name', userName);
+    return this.http.get(this.apiPostService.searchUsers, { params });
   }
 }
