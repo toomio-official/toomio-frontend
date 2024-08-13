@@ -27,7 +27,7 @@ jobs:
           aws-region: "us-east-1"
 
       - name: NPM Install
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: NPM Build
         run: CI=false npm run build
