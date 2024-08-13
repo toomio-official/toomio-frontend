@@ -26,6 +26,7 @@ export class ProfileHomeComponent implements OnInit{
   followingCount:any;
   userDetails:any;
   userName:any;
+  userLastName:any;
 
   constructor(
     private postService: PostService,
@@ -91,6 +92,7 @@ export class ProfileHomeComponent implements OnInit{
     this.postService.getUserDetails(obj).subscribe((res:any)=>{
       this.userDetails = res.UserAttributes[7];
       this.userName = res.UserAttributes[4];
+      this.userLastName = res.UserAttributes[5]
     })
   }
 

@@ -14,9 +14,9 @@
   <img class="profile-pic" src="{{userDetails.Value}}" alt="Profile Picture">
 </div>
 <div class="profile-info">
-  <h2>{{userName.Value}}</h2>
-  <p class="job">Front-end Developer</p>
-  <p><i class="fas fa-map-marker-alt"></i> America</p>
+  <h2>{{userName.Value}} {{userLastName.Value}}</h2>
+  <p class="job">{{userEmail}}</p>
+  <p><i class="fas fa-map-marker-alt"></i> Sri Lanka</p>
   <div class="follow-info">
     <p>Following: {{ followingCount }}</p>
     <p>Followers: {{followersCount}}</p>
@@ -41,18 +41,24 @@
   <div *ngIf="selectedOption === 'post'">
     <div class="col-md-10 mx-4" *ngFor="let item of postList">
       <div id="whois" class="d-flex align-items-center">
-        <div class="profile-image-wrapper">
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image" (click)="findProfile(item)">
-        </div>
+<!--        <div class="profile-image-wrapper">-->
+<!--          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image" (click)="findProfile(item)">-->
+<!--        </div>-->
         <div class="text-start mx-2">
           <div class="title">#{{ item.title }}</div>
           <div class="fw-bold username">{{ item.userName }}</div>
         </div>
       </div>
       <p>{{ item.content }}</p>
-      <img
-        src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHx1aSUyMHV4fGVufDB8fHx8MTYzMjM5NzI3OA&ixlib=rb-1.2.1&q=80&w=1080"
-        alt="Nature" class="nature-img">
+<!--      <img-->
+<!--        src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHx1aSUyMHV4fGVufDB8fHx8MTYzMjM5NzI3OA&ixlib=rb-1.2.1&q=80&w=1080"-->
+<!--        alt="Nature" class="nature-img">-->
+      <div class="nature-img">
+        <img *ngFor="let imageUrl of item.imageUrls"
+             src="{{imageUrl}}"
+             alt="Image"
+             class="nature-img mx-1 my-1">
+      </div>
       <div class="interaction mt-4">
         <i (click)="likePost(item)" class="fas fa-sign-language"></i>
         <span>{{ item.likeCount }}</span>
@@ -90,10 +96,12 @@
           <div class="fw-bold username">{{ item.userName }}</div>
         </div>
       </div>
-      <p>{{ item.content }}</p>
-      <img
-        src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHx1aSUyMHV4fGVufDB8fHx8MTYzMjM5NzI3OA&ixlib=rb-1.2.1&q=80&w=1080"
-        alt="Nature" class="nature-img">
+      <p>{{ item.description }}</p>
+<!--      <img-->
+<!--        src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHx1aSUyMHV4fGVufDB8fHx8MTYzMjM5NzI3OA&ixlib=rb-1.2.1&q=80&w=1080"-->
+<!--        alt="Nature" class="nature-img">-->
+
+
       <div class="interaction mt-4">
         <i (click)="likePost(item)" class="fas fa-sign-language"></i>
         <span>{{ item.likeCount }}</span>
