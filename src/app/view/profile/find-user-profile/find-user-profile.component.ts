@@ -29,7 +29,9 @@ export class FindUserProfileComponent   implements OnInit{
   profileUserEmail:string | null = null
   userDetails:any;
   userName:any;
-
+  followUserData:any;
+  followUserButton: boolean = false;
+  userLastName:any
   constructor(
     private postService: PostService,
     private location: Location,
@@ -91,12 +93,14 @@ export class FindUserProfileComponent   implements OnInit{
 
   getUserDetails(){
     let obj = {
-      email: this.userEmail,
+      email: this.profileUserEmail,
     }
 
     this.postService.getUserDetails(obj).subscribe((res:any)=>{
       this.userDetails = res.UserAttributes[7];
       this.userName = res.UserAttributes[4];
+      this.userLastName = res.UserAttributes[5]
+
     })
   }
 
@@ -108,7 +112,7 @@ export class FindUserProfileComponent   implements OnInit{
 
     this.postService.likePost(obj).subscribe((res: any) => {
       this.likePostData = res;
-      this.getPostLikes(obj)
+      this.getAllPosts();
     })
   }
 
@@ -163,5 +167,15 @@ export class FindUserProfileComponent   implements OnInit{
     })
   }
 
+  followAUSer(){
+    let obj = {
+      followerUserEmail: this.userEmail,
+      followingUserEmail: this.profileUserEmail,
+    }
+    this.postService.followAUser(obj).subscribe((res:any)=>{
+      this.followUserData = res;
+      this.followUserButton = true
+    })
+  }
 
 }

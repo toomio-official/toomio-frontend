@@ -88,6 +88,7 @@ span.underline {
   cursor: pointer;
   display: flex;
   align-items: center;
+  color:black;
 }
 
 .back-button i {
@@ -175,4 +176,21 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.follow-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 10px; /* Adjust this value to move the button lower */
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.follow-btn:hover {
+  background-color: #0d8ac9;
 }
