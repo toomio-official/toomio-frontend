@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - IaC/*
+      - .github/workflows/infrastructure_deployment.yml
 
 jobs:
   deploy:
