@@ -27,6 +27,8 @@ export class ProfileHomeComponent implements OnInit{
   userDetails:any;
   userName:any;
   userLastName:any;
+  journeyPostsMap:any;
+  expandedJourneyId: string | null = null;
 
   constructor(
     private postService: PostService,
@@ -64,25 +66,65 @@ export class ProfileHomeComponent implements OnInit{
     this.location.back();
   }
 
-  getAllPosts(){
-    this.postService.getAllPosts(this.userEmail).subscribe((res:any)=>{
-      this.postList= res;
+  getAllPosts() {
+    this.postService.getAllPosts(this.userEmail).subscribe((res: any) => {
+      this.postList = res;
+      // Create an object to map journeyId to posts
+      const journeyPostsMap: { [key: string]: any[] } = {};
+
       this.postList.forEach((post: any) => {
-        post.likeCount = post.likes?.length; // Set likeCount for each post
-        post.commentCount = post.comments?.length
+        post.likeCount = post.likes?.length || 0;
+        post.commentCount = post.comments?.length || 0;
+
+        if (post.journey) {
+          if (!journeyPostsMap[post.journey]) {
+            journeyPostsMap[post.journey] = [];
+          }
+          journeyPostsMap[post.journey].push(post);
+        }
       });
-    })
+
+      this.journeyPostsMap = journeyPostsMap;// Save the map to use later
+    });
   }
 
-  getAllJourneys(){
-    this.postService.getAllJourneys(this.userEmail).subscribe((res:any)=>{
+  getAllJourneys() {
+    this.postService.getAllJourneys(this.userEmail).subscribe((res: any) => {
       this.journeyList = res;
-      this.journeyList.forEach((post: any) => {
-        post.likeCount = post.likes?.length; // Set likeCount for each post
-        post.commentCount = post.comments?.length
+
+      this.journeyList.forEach((journey: any) => {
+        journey.likeCount = journey.likes?.length || 0;
+        journey.commentCount = journey.comments?.length || 0;
+
+        // Attach related posts to each journey
+        journey.posts = this.journeyPostsMap[journey._id] || [];
       });
-    })
+    });
   }
+
+  toggleJourneyDetails(journeyId: string) {
+    this.expandedJourneyId = this.expandedJourneyId === journeyId ? null : journeyId;
+  }
+
+  // getAllPosts(){
+  //   this.postService.getAllPosts(this.userEmail).subscribe((res:any)=>{
+  //     this.postList= res;
+  //     this.postList.forEach((post: any) => {
+  //       post.likeCount = post.likes?.length; // Set likeCount for each post
+  //       post.commentCount = post.comments?.length
+  //     });
+  //   })
+  // }
+  //
+  // getAllJourneys(){
+  //   this.postService.getAllJourneys(this.userEmail).subscribe((res:any)=>{
+  //     this.journeyList = res;
+  //     this.journeyList.forEach((post: any) => {
+  //       post.likeCount = post.likes?.length; // Set likeCount for each post
+  //       post.commentCount = post.comments?.length
+  //     });
+  //   })
+  // }
 
   getUserDetails(){
     let obj = {
@@ -104,7 +146,7 @@ export class ProfileHomeComponent implements OnInit{
 
     this.postService.likePost(obj).subscribe((res: any) => {
       this.likePostData = res;
-      this.getPostLikes(obj)
+      this.getAllPosts();
     })
   }
 

@@ -2,8 +2,8 @@
   <button (click)="goBack()">
     <i class="fas fa-arrow-left"></i>
   </button>
-  <h5>Peter</h5>
-  <p>6 journeys</p>
+  <h5>{{userName.Value}} {{userLastName.Value}}</h5>
+<!--  <p>6 journeys</p>-->
 </div>
 
 <div class="profile-header">
@@ -12,6 +12,7 @@
        alt="Cover Picture">
 <!--  <img class="profile-pic" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile Picture">-->
   <img class="profile-pic" src="{{userDetails.Value}}" alt="Profile Picture">
+
 </div>
 <div class="profile-info">
   <h2>{{userName.Value}} {{userLastName.Value}}</h2>
@@ -89,42 +90,55 @@
     <div class="col-md-10 mx-4" *ngFor="let item of journeyList">
       <div id="whois" class="d-flex align-items-center">
         <div class="profile-image-wrapper">
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image">
+<!--          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-image">-->
         </div>
         <div class="text-start mx-2">
           <div class="title">#{{ item.title }}</div>
           <div class="fw-bold username">{{ item.userName }}</div>
         </div>
+        <!-- Arrow indicator -->
+        <div
+          class="expand-arrow"
+          [ngClass]="{'expanded': expandedJourneyId === item._id}"
+          (click)="toggleJourneyDetails(item._id)">
+          &#9662; <!-- Down arrow (or use font icons if preferred) -->
+        </div>
       </div>
       <p>{{ item.description }}</p>
-<!--      <img-->
-<!--        src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHx1aSUyMHV4fGVufDB8fHx8MTYzMjM5NzI3OA&ixlib=rb-1.2.1&q=80&w=1080"-->
-<!--        alt="Nature" class="nature-img">-->
 
-
-      <div class="interaction mt-4">
-        <i (click)="likePost(item)" class="fas fa-sign-language"></i>
-        <span>{{ item.likeCount }}</span>
-        <i (click)="openCommentModal(item)" class="fas fa-comment mx-5"></i>
-        <span class="mx-0">{{ item.commentCount }}</span>
-      </div>
-      <div *ngIf="isCommentModalOpen && selectedPostId === item._id" class="modal">
-        <div class="modal-content">
-          <span class="close" (click)="closeCommentModal()">&times;</span>
-          <!-- Previous Comments Section -->
-          <div class="comments-section">
-            <div *ngFor="let comment of comments" class="comment-item">
-              <strong>{{ comment.userEmail }}:</strong> {{ comment.content }}
+      <!-- Show/hide post details based on the expanded journey -->
+      <div *ngIf="expandedJourneyId === item._id" class="expanded-content">
+        <div *ngFor="let post of item.posts" class="post-details">
+          <p>{{ post.title }}</p>
+          <p>{{ post.content }}</p>
+          <div class="nature-img">
+            <img *ngFor="let imageUrl of item.imageUrls"
+                 src="{{imageUrl}}"
+                 alt="Image"
+                 class="nature-img mx-1 my-1">
+          </div>
+          <div class="interaction mt-4">
+            <i (click)="likePost(post)" class="fas fa-sign-language"></i>
+            <span>{{ post.likeCount }}</span>
+            <i (click)="openCommentModal(post)" class="fas fa-comment mx-5"></i>
+            <span class="mx-0">{{ post.commentCount }}</span>
+          </div>
+          <div *ngIf="isCommentModalOpen && selectedPostId === post._id" class="modal">
+            <div class="modal-content">
+              <span class="close" (click)="closeCommentModal()">&times;</span>
+              <div class="comments-section">
+                <div *ngFor="let comment of comments" class="comment-item">
+                  <strong>{{ comment.userEmail }}:</strong> {{ comment.content }}
+                </div>
+              </div>
+              <textarea type="text" [(ngModel)]="content" placeholder="Add a comment"></textarea>
+              <button (click)="addComment(post)">Submit</button>
             </div>
           </div>
-          <textarea type="text" [(ngModel)]="content" placeholder="Add a comment"></textarea>
-          <button (click)="addComment(item)">Submit</button>
         </div>
       </div>
       <hr>
     </div>
   </div>
-
-</div>
 
 

@@ -2,8 +2,8 @@
   <button (click)="goBack()">
     <i class="fas fa-arrow-left"></i>
   </button>
-  <h5>Peter</h5>
-  <p>6 journeys</p>
+  <h5>{{userName.Value}} {{userLastName.Value}}</h5>
+<!--  <p>6 journeys</p>-->
 </div>
 
 <div class="profile-header">
@@ -12,16 +12,21 @@
        alt="Cover Picture">
 <!--  <img class="profile-pic" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile Picture">-->
   <img class="profile-pic" src="{{userDetails.Value}}" alt="Profile Picture">
-
+<div *ngIf="!followUserButton">
+  <button  (click)="followAUSer()" class="follow-btn">Follow</button>
+</div>
 </div>
 <div class="profile-info">
   <h2>{{userName.Value}}</h2>
   <p class="job">Front-end Developer</p>
   <p><i class="fas fa-map-marker-alt"></i> America</p>
+
   <div class="follow-info">
     <p>Following: {{ followingCount }}</p>
     <p>Followers: {{followersCount}}</p>
   </div>
+
+
 
   <div>
     <div class="center-container">

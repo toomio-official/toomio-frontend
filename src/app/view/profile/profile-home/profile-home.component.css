@@ -79,6 +79,7 @@ span.underline {
 .back-button {
   text-align: left;
   margin: 10px;
+  color:black
 }
 
 .back-button button {
@@ -88,6 +89,8 @@ span.underline {
   cursor: pointer;
   display: flex;
   align-items: center;
+  color:black
+
 }
 
 .back-button i {
@@ -173,4 +176,20 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.expand-arrow {
+  cursor: pointer;
+  font-size: 18px;
+  color: #007bff; /* Change color as needed */
+  transition: transform 0.3s;
+}
+
+.expand-arrow.expanded {
+  transform: rotate(180deg); /* Rotate arrow when expanded */
+}
+
+.expanded-content {
+  padding: 10px 0;
+  border-top: 1px solid #ddd; /* Optional, for separation */
 }
