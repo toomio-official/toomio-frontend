@@ -31,5 +31,8 @@ jobs:
       - name: Terraform Plan
         run: terraform -chdir=IaC/ plan
       
-      - name: Terraform Apply
-        run: terraform -chdir=IaC/ apply --auto-approve
+      # - name: Terraform Apply
+      #   run: terraform -chdir=IaC/ apply --auto-approve
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
